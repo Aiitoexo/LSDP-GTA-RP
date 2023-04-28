@@ -6,7 +6,9 @@
 
         <div class="h-80 overflow-y-auto">
             <Comment
-                v-for="c in 20"
+                v-for="comment in comments"
+                :key="comment.id"
+                :comment="comment"
             />
         </div>
 
@@ -27,7 +29,8 @@ export default {
     name: "CommentsProfile",
     components: {
         Comment
-    }
+    },
+    props: ['comments']
 }
 </script>
 

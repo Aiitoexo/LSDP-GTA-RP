@@ -1,15 +1,18 @@
 <template>
-    <div class="h-20 w-full grid grid-cols-12 py-2 px-4 gap-6 border-b border-zinc-300" :class="primary">
+    <div class="h-20 w-full grid grid-cols-12 py-2 px-4 gap-6 border-b border-zinc-300"
+         :class="primary"
+         @click="this.$emit('selected-profile', profile)"
+    >
         <div class="col-span-3 h-16 w-16 rounded-full bg-green-400 overflow-hidden">
-            <img src="https://placehold.co/600x400"
+            <img :src="profile.picture_url"
                  alt=""
                  class="h-full object-cover object-center"
             >
         </div>
 
         <div class="col-span-7 my-auto text-lg">
-            <p>Apirak</p>
-            <p>Lachaud</p>
+            <p>{{ profile.firstname }}</p>
+            <p>{{ profile.lastname }}</p>
         </div>
 
         <div class="col-span-2 my-auto">
@@ -23,6 +26,7 @@
 <script>
 export default {
     name: "ListPrisonInmate",
+    props: ['profile'],
     data() {
         return {
             primaryClass: "white",

@@ -1,10 +1,10 @@
 <template>
     <div class="w-full grid grid-cols-6 border-b">
         <div class="col-span-1 flex items-center justify-center border-r border-zinc-300">
-            <span class="text-sm">25/04/2023</span>
+            <span class="text-sm">{{ comment.created_at }}</span>
         </div>
         <div class="col-span-4 ml-2 p-2">
-            Je suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beauJe suis pas beau
+            {{ comment.content }}
         </div>
         <div class="col-span-1 flex items-center justify-center border-l border-zinc-300">
             <button class="p-2 rounded-md bg-red-500 text-white">
@@ -18,7 +18,8 @@
 
 <script>
 export default {
-    name: "Comment"
+    name: "Comment",
+    props: ['comment']
 }
 </script>
 

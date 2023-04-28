@@ -9,8 +9,12 @@
     </div>
 
     <div class="h-[42rem]">
-        <div v-for="a in 40" class="h-12 grid grid-cols-12 border-b divide-x">
-            <Arrest @active-modal="this.$emit('active-modal', $event)"/>
+        <div v-for="arrest in arrests"  class="h-12 grid grid-cols-12 border-b divide-x">
+            <Arrest
+                :key="arrest.id"
+                :arrest="arrest"
+                @active-modal="this.$emit('active-modal', $event)"
+            />
         </div>
     </div>
 </template>
@@ -21,7 +25,8 @@ export default {
     name: "Arrests",
     components: {
         Arrest
-    }
+    },
+    props: ['arrests']
 }
 </script>
 

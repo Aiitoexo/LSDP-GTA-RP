@@ -6,7 +6,7 @@
     <div class="col-span-1 flex justify-center items-center">Fouille</div>
     <div class="col-span-1 flex justify-center items-center">Fédérale</div>
     <div class="col-span-2 flex justify-around items-center">
-        <button @click="this.$emit('active-modal', 'update-conviction')"
+        <button @click="this.$emit('active-modal', 'conviction')"
                 class="text-white bg-blue-500 p-2 rounded-md"
         >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

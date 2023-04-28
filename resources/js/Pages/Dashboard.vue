@@ -10,7 +10,10 @@
 
         <template #subNav>
             <ListPrisonInmate
-                v-for="p in 20"
+                v-for="profile in profiles"
+                :key="profile.id"
+                :profile="profile"
+                @selected-profile="profileSelected"
             />
         </template>
 
@@ -18,17 +21,22 @@
             <div class="grid grid-cols-12 gap-4 h-full">
                 <div class="col-span-4 space-y-4 flex flex-col">
                     <div class="h-80 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
-                        <ProfileCard/>
+                        <ProfileCard
+                            :profile="selectedProfile"
+                        />
                     </div>
 
                     <div class="flex-1 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
-                        <CommentsProfile/>
+                        <CommentsProfile
+                            :comments="selectedProfile.comments"
+                        />
                     </div>
                 </div>
 
                 <div class="col-span-8 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
                     <ArrestsAndConvictions
                         @active-modal="activeModal"
+                        :arrests="selectedProfile.arrests"
                     />
                 </div>
             </div>
@@ -36,10 +44,7 @@
     </admin-layout>
 
     <div v-if="modalActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
-        <ModalAddArrest v-if="targetModal === 'add-arrest'"/>
-        <ModalUpdateArrest v-if="targetModal === 'update-arrest'"/>
-        <ModalAddConviction v-if="targetModal === 'add-conviction'"/>
-        <ModalUpdateConviction v-if="targetModal === 'update-conviction'"/>
+        <ModalForm @close-modal="closeModal" :open="targetModal"/>
     </div>
 </template>
 
@@ -51,10 +56,7 @@ import NavTop from "@/Pages/Components/NavTop.vue";
 import ProfileCard from "@/Pages/Components/ProfileCard.vue";
 import CommentsProfile from "@/Pages/Components/CommentsProfile.vue";
 import ArrestsAndConvictions from "@/Pages/Components/ArrestsAndConvictions.vue";
-import ModalAddArrest from "@/Pages/Components/ModalAddArrest.vue";
-import ModalAddConviction from "@/Pages/Components/ModalAddConviction.vue";
-import ModalUpdateArrest from "@/Pages/Components/ModalUpdateArrest.vue";
-import ModalUpdateConviction from "@/Pages/Components/ModalUpdateConviction.vue";
+import ModalForm from "@/Pages/Components/ModalForm.vue";
 export default {
     name: "Dashboard",
     components: {
@@ -65,21 +67,26 @@ export default {
         ProfileCard,
         CommentsProfile,
         ArrestsAndConvictions,
-        ModalAddArrest,
-        ModalAddConviction,
-        ModalUpdateArrest,
-        ModalUpdateConviction
+        ModalForm
     },
+    props: ['profiles'],
     data() {
         return {
             modalActive: false,
-            targetModal: null
+            targetModal: null,
+            selectedProfile: this.profiles[0],
         }
     },
     methods: {
         activeModal(target) {
-            this.modalActive = !this.modalActive
+            this.modalActive = true
             this.targetModal = target
+        },
+        closeModal() {
+            this.modalActive = false
+        },
+        profileSelected(profile) {
+            this.selectedProfile = profile
         }
     }
 }

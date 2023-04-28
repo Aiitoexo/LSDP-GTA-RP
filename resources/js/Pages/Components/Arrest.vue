@@ -1,11 +1,13 @@
 <template>
-    <div class="col-span-1 flex justify-center items-center">Date</div>
-    <div class="col-span-5 flex justify-center items-center">Infraction</div>
-    <div class="col-span-1 flex justify-center items-center">Amende</div>
-    <div class="col-span-1 flex justify-center items-center">Payer</div>
-    <div class="col-span-2 flex justify-center items-center">Condamnation</div>
+    <div class="col-span-1 flex justify-center items-center">{{ arrest.created_at }}</div>
+    <div class="col-span-5 flex justify-center items-center">{{ arrest.offense.content }}</div>
+    <div class="col-span-1 flex justify-center items-center">{{ arrest.offense.fine }}$</div>
+    <div class="col-span-1 flex justify-center items-center">{{ arrest.payed }}</div>
+    <div class="col-span-2 flex justify-center items-center">
+        <button @click="this.$emit('active-modal', 'conviction')" class="p-2 bg-blue-500 rounded-md text-white">Ajouter</button>
+    </div>
     <div class="col-span-2 flex justify-around items-center">
-        <button @click="this.$emit('active-modal', 'update-arrest')"
+        <button @click="this.$emit('active-modal', 'arrest')"
                 class="text-white bg-blue-500 p-2 rounded-md"
         >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -22,7 +24,8 @@
 
 <script>
 export default {
-    name: "Arrest"
+    name: "Arrest",
+    props: ['arrest']
 }
 </script>
 

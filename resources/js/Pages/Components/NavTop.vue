@@ -9,7 +9,7 @@
 
         </div>
 
-        <div class="col-span-2 px-10 my-auto flex justify-end relative">
+        <div class="col-span-2 px-10 my-auto flex justify-end relative sd">
             <button @click="openDropdown = !openDropdown"
                     class="w-36 text-white bg-zinc-700 hover:bg-zinc-800 focus:ring-2 focus:outline-none focus:ring-zinc-300 rounded-lg px-4 py-2.5 flex justify-between item-center"
                     type="button">
@@ -20,18 +20,18 @@
                 </svg>
             </button>
 
-            <div class="divide-y rounded-lg shadow w-36 bg-zinc-700 divide-bg-zinc-700-400 absolute top-14 overflow-hidden block z-50 "
+            <div class="divide-y rounded-lg shadow-md w-36 bg-white divide-bg-zinc-700-400 absolute top-12 overflow-hidden block"
                  :class="openDropdown ? 'block' : 'hidden'">
-                <ul class="py-2 text-sm text-gray-200">
+                <ul class="py-2 text-sm">
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-bg-zinc-600 hover:text-white">Settings</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Settings</a>
                     </li>
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-bg-zinc-600 hover:text-white">Admin</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Admin</a>
                     </li>
                 </ul>
                 <div class="pt-2 ">
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-red-600 text-gray-200 hover:text-white">Deconecter</a>
+                    <a href="#" class="block px-4 py-2 text-sm hover:bg-red-600 hover:text-white">Deconecter</a>
                 </div>
             </div>
         </div>

@@ -2,8 +2,7 @@
     <div class="h-full w-full flex flex-col">
         <div class="flex-1 px-2 flex justify-between">
             <div class="h-full flex items-center space-x-2">
-                <button @click="this.$emit('active-modal', 'add-arrest')" class="px-2 py-1 bg-blue-500 rounded-md text-white">Ajouter une Arrestation</button>
-                <button @click="this.$emit('active-modal', 'add-conviction')" class="px-2 py-1 bg-blue-500 rounded-md text-white">Ajouter une Condanations</button>
+                <button @click="this.$emit('active-modal', 'arrest')" class="px-2 py-1 bg-blue-500 rounded-md text-white">Ajouter une Arrestation</button>
             </div>
 
             <div class="h-full flex items-center">
@@ -25,7 +24,12 @@
         </div>
 
         <div class="h-[44rem] flex flex-col overflow-y-auto relative">
-            <ArrestsList v-if="active === 'arrests'" @active-modal="this.$emit('active-modal', $event)"/>
+            <ArrestsList
+                v-if="active === 'arrests'"
+                @active-modal="this.$emit('active-modal', $event)"
+                :arrests="arrests"
+            />
+
             <ConvictionsList v-if="active === 'convictions'" @active-modal="this.$emit('active-modal', $event)"/>
         </div>
     </div>
@@ -40,6 +44,7 @@ export default {
         ArrestsList,
         ConvictionsList
     },
+    props: ['arrests'],
     data() {
         return {
             active: 'arrests'
