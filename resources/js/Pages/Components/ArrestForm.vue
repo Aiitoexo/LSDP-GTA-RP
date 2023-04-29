@@ -1,5 +1,6 @@
 <template>
-    <div class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Ajouter une Arrestation</div>
+    <div v-if="type === 'add'" class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Ajouter une Arrestation</div>
+    <div v-else class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Modifier une Arrestation</div>
 
     <div class="p-4 space-y-2 divide-y-2">
         <div class="grid grid-cols-6">
