@@ -4,10 +4,31 @@
     <div class="col-span-1 flex justify-center items-center">{{ arrest.offense.fine }}$</div>
     <div class="col-span-1 flex justify-center items-center">{{ arrest.payed }}</div>
     <div class="col-span-2 flex justify-center items-center">
-        <button @click="this.$emit('active-modal', 'conviction')" class="p-2 bg-blue-500 rounded-md text-white">Ajouter</button>
+        <div
+            v-if="arrest.fine_remove"
+            class="w-20 p-2 bg-zinc-500 rounded-md text-white"
+        >
+            Annuler
+        </div>
+
+        <button
+            v-else-if="arrest.has_conviction"
+            @click="this.$emit('active-modal', { modal: 'conviction', type: 'info', data: arrest })"
+            class="w-20 p-2 bg-blue-500 rounded-md text-white"
+        >
+            Info
+        </button>
+
+        <button
+            v-else
+            @click="this.$emit('active-modal', { modal: 'conviction', type: 'add', data: arrest })"
+            class="w-20 p-2 bg-green-500 rounded-md text-white"
+        >
+            Ajouter
+        </button>
     </div>
     <div class="col-span-2 flex justify-around items-center">
-        <button @click="this.$emit('active-modal', 'arrest')"
+        <button @click="this.$emit('active-modal', { modal: 'arrest', type: 'update', data: arrest })"
                 class="text-white bg-blue-500 p-2 rounded-md"
         >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -25,7 +46,7 @@
 <script>
 export default {
     name: "Arrest",
-    props: ['arrest']
+    props: ['arrest'],
 }
 </script>
 

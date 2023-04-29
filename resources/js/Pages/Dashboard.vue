@@ -13,6 +13,7 @@
                 v-for="profile in profiles"
                 :key="profile.id"
                 :profile="profile"
+                :selected="selectedProfile.id"
                 @selected-profile="profileSelected"
             />
         </template>
@@ -37,6 +38,7 @@
                     <ArrestsAndConvictions
                         @active-modal="activeModal"
                         :arrests="selectedProfile.arrests"
+                        :convictions="selectedProfile.convictions"
                     />
                 </div>
             </div>
@@ -44,7 +46,13 @@
     </admin-layout>
 
     <div v-if="modalActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
-        <ModalForm @close-modal="closeModal" :open="targetModal"/>
+        <ModalForm
+            @close-modal="closeModal"
+            :open-modal="targetModal"
+            :profile="selectedProfile"
+            :convictions="convictions"
+            :offenses="offenses"
+        />
     </div>
 </template>
 
@@ -69,7 +77,7 @@ export default {
         ArrestsAndConvictions,
         ModalForm
     },
-    props: ['profiles'],
+    props: ['profiles', 'convictions', 'offenses'],
     data() {
         return {
             modalActive: false,

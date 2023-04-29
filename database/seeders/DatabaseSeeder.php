@@ -8,6 +8,7 @@ use App\Models\CommentProfile;
 use App\Models\Offenses;
 use App\Models\ProfileInMate;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -1015,6 +1016,7 @@ class DatabaseSeeder extends Seeder
                     'offense_id' => $offense->id,
                     'payed' => rand(0, 1),
                     'has_conviction' => $has_conviction,
+                    'created_at_conviction' => $has_conviction ? Carbon::now()->format('d/m/y') : null,
                     'fine_remove' => $fine_remove,
                 ]);
             }

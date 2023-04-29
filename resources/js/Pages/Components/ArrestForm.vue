@@ -3,31 +3,28 @@
 
     <div class="p-4 space-y-2 divide-y-2">
         <div class="grid grid-cols-6">
-            <div class="col-span-2">Prenom</div>
-            <div class="col-span-2">Nom</div>
-            <div class="col-span-2">N identiter</div>
+            <div class="col-span-2">Prenom: {{ profile.firstname }}</div>
+            <div class="col-span-2">Nom: {{ profile.lastname }}</div>
+            <div class="col-span-2">N identiter: {{ profile.identity_number }}</div>
         </div>
 
         <div class="grid grid-cols-12 pt-4 space-x-4 pb-2">
             <div class="col-span-8 flex flex-col">
                 <label for="">Infraction</label>
-                <select class="h-10 rounded-md">
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
+                <select class="h-10 rounded-md" v-model="form.offense_id" @change="updateOffense">
+                    <option v-for="offense in offenses" :key="offense.id" :value="offense.id">
+                        {{ offense.content }}
+                    </option>
                 </select>
             </div>
             <div class="col-span-2 flex flex-col">
                 <label for="">Amende</label>
-                <input class="h-10 rounded-md" type="text" disabled>
+                <input class="h-10 rounded-md" :value="form.fine" type="text" disabled>
             </div>
             <div class="col-span-2 flex flex-col items-center">
                 <label for="">Payer ?</label>
                 <div class="flex justify-center p-2">
-                    <input class="h-6 w-6 rounded-md" type="checkbox">
+                    <input class="h-6 w-6 rounded-md" :value="form.payed" type="checkbox">
                 </div>
             </div>
         </div>
@@ -38,10 +35,35 @@
         </div>
     </div>
 </template>
-<!--Penser a midifier ou ajouter si data ou pas -->
+
 <script>
 export default {
-    name: "ArrestForm"
+    name: "ArrestForm",
+    props: ['offenses', 'data', 'type', 'profile'],
+    data() {
+        if (this.type === 'update') {
+            return {
+                form: {
+                    offense_id: this.data.offense.id,
+                    fine: this.data.offense.fine,
+                    payed: this.data.payed
+                }
+            }
+        } else {
+            return {
+                form: {
+                    offense_id: null,
+                    fine: null,
+                    payed: null
+                }
+            }
+        }
+    },
+    methods: {
+        updateOffense() {
+            this.form.fine = this.offenses.find(f => f.id === this.form.offense_id).fine
+        }
+    }
 }
 </script>
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('payed')->default(false);
             $table->foreign('offense_id')->references('id')->on('offenses');
             $table->boolean('has_conviction')->default(false);
+            $table->string('created_at_conviction')->nullable();
             $table->boolean('fine_remove')->default(false);
             $table->timestamps();
         });

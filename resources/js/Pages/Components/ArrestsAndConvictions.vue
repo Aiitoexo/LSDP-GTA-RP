@@ -2,12 +2,12 @@
     <div class="h-full w-full flex flex-col">
         <div class="flex-1 px-2 flex justify-between">
             <div class="h-full flex items-center space-x-2">
-                <button @click="this.$emit('active-modal', 'arrest')" class="px-2 py-1 bg-blue-500 rounded-md text-white">Ajouter une Arrestation</button>
+                <button @click="this.$emit('active-modal', { modal: 'arrest', type: 'add', data: null })" class="px-2 py-1 bg-blue-500 rounded-md text-white">Ajouter une Arrestation</button>
             </div>
 
-            <div class="h-full flex items-center">
-                <button class="px-2 py-1 bg-zinc-500 rounded-md text-white">Rendu</button>
-            </div>
+<!--            <div class="h-full flex items-center">-->
+<!--                <button class="px-2 py-1 bg-zinc-500 rounded-md text-white">Rendu</button>-->
+<!--            </div>-->
         </div>
 
         <div class="h-12 grid grid-cols-2 text-lg divide-x divide-zinc-500">
@@ -30,7 +30,11 @@
                 :arrests="arrests"
             />
 
-            <ConvictionsList v-if="active === 'convictions'" @active-modal="this.$emit('active-modal', $event)"/>
+            <ConvictionsList
+                v-if="active === 'convictions'"
+                @active-modal="this.$emit('active-modal', $event)"
+                :convictions="convictions"
+            />
         </div>
     </div>
 </template>
@@ -44,7 +48,7 @@ export default {
         ArrestsList,
         ConvictionsList
     },
-    props: ['arrests'],
+    props: ['arrests', 'convictions'],
     data() {
         return {
             active: 'arrests'

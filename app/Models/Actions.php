@@ -14,4 +14,12 @@ class Actions extends Model
     {
         return $this->belongsTo(Offenses::class);
     }
+
+    public function getGavDurationInHoursAttribute(): string
+    {
+        $minutes = $this->gav;
+        $hours = floor($minutes / 60);
+        $minutes = $minutes % 60;
+        return $hours . 'h' . sprintf('%02d', $minutes);
+    }
 }

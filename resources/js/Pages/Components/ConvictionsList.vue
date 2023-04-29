@@ -6,12 +6,15 @@
         <div class="col-span-1 flex justify-center items-center">GAV</div>
         <div class="col-span-1 flex justify-center items-center">Fouille</div>
         <div class="col-span-1 flex justify-center items-center">Fédérale</div>
-        <div class="col-span-2 flex justify-center items-center">Edit/Supprimer</div>
+        <div class="col-span-2 flex justify-center items-center">Supprimer</div>
     </div>
 
     <div class="h-[42rem]">
-        <div v-for="a in 40" class="h-12 grid grid-cols-12 border-b divide-x">
-            <Conviction @active-modal="this.$emit('active-modal', $event)"/>
+        <div v-for="conviction in convictions" class="h-12 grid grid-cols-12 border-b divide-x">
+            <Conviction
+                :conviction="conviction"
+                @active-modal="this.$emit('active-modal', $event)"
+            />
         </div>
     </div>
 </template>
@@ -22,7 +25,8 @@ export default {
     name: "Convictions",
     components: {
         Conviction
-    }
+    },
+    props: ['convictions']
 }
 </script>
 

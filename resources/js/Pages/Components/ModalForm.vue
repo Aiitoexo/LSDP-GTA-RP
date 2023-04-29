@@ -1,8 +1,23 @@
 <template>
     <div class="h-full w-full flex justify-center items-center">
         <div class="bg-white rounded-md overflow-hidden w-[50rem]">
-            <ArrestForm v-if="open === 'arrest'" @close-modal="this.$emit('close-modal')"/>
-            <ConvictionForm v-if="open === 'conviction'" @close-modal="this.$emit('close-modal')"/>
+            <ArrestForm
+                :data="openModal.data"
+                :type="openModal.type"
+                :profile="profile"
+                :offenses="offenses"
+                v-if="openModal.modal === 'arrest'"
+                @close-modal="this.$emit('close-modal')"
+            />
+
+            <ConvictionForm
+                :data="openModal.data"
+                :type="openModal.type"
+                :profile="profile"
+                :convictions="convictions"
+                v-if="openModal.modal === 'conviction'"
+                @close-modal="this.$emit('close-modal')"
+            />
         </div>
     </div>
 </template>
@@ -17,7 +32,10 @@ export default {
         ConvictionForm
     },
     props: [
-        'open'
+        'open-modal',
+        'profile',
+        'convictions',
+        'offenses'
     ]
 }
 </script>
