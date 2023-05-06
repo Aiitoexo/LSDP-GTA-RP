@@ -59,7 +59,8 @@
 
         <div v-else class="pt-4 flex justify-end space-x-4">
             <button @click="this.$emit('close-modal')" class="bg-red-500 p-2 w-24 text-white rounded-md">Annuler</button>
-            <button class="bg-blue-500 p-2 w-24 text-white rounded-md">Valider</button>
+            <button v-if="type === 'add'" @click="addConviction" class="bg-blue-500 p-2 w-24 text-white rounded-md">Ajouter</button>
+            <button v-else class="bg-blue-500 p-2 w-24 text-white rounded-md">Valider</button>
         </div>
     </div>
 </template>
@@ -107,6 +108,18 @@ export default {
             this.conviction.gav = temp.gav
             this.conviction.post_search = temp.post_search
             this.conviction.federal = temp.federal
+        }
+    },
+    methods: {
+        addConviction() {
+            axios.post(route('dashboard.add.conviction'), {
+                arrest_id: this.data.id,
+                profile_in_mate_id: this.data.profile_in_mate_id
+            })
+                .then(response => {
+                    this.$emit('update-arrest', response.data)
+                    this.$emit('close-modal')
+                })
         }
     }
 }

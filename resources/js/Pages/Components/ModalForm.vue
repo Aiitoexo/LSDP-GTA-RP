@@ -8,6 +8,7 @@
                 :offenses="offenses"
                 v-if="openModal.modal === 'arrest'"
                 @close-modal="this.$emit('close-modal')"
+                @update-arrest="this.$emit('update-arrest', $event)"
             />
 
             <ConvictionForm
@@ -17,6 +18,7 @@
                 :convictions="convictions"
                 v-if="openModal.modal === 'conviction'"
                 @close-modal="this.$emit('close-modal')"
+                @update-arrest="this.$emit('update-arrest', $event)"
             />
         </div>
     </div>

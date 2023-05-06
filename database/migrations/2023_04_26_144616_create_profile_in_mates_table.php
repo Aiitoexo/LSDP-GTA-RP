@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('picture_url'); //TODO: unique
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('gender')->nullable();
+            $table->boolean('gender')->nullable();
             $table->string('birthday')->nullable();
             $table->integer('age')->nullable();
             $table->string('address')->nullable();

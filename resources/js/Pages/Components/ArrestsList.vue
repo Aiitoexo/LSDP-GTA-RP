@@ -14,6 +14,7 @@
                 :key="arrest.id"
                 :arrest="arrest"
                 @active-modal="this.$emit('active-modal', $event)"
+                @update-arrest="this.$emit('update-arrest', $event)"
             />
         </div>
     </div>

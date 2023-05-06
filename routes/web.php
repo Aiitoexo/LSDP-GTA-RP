@@ -23,6 +23,22 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::post('/dashboard/add/profile', [DashboardController::class, 'addProfile'])->name('dashboard.add.profile');
+    Route::post('/dashboard/delete/profile', [DashboardController::class, 'deleteProfile'])->name('dashboard.delete.profile');
+
+    Route::get('/dashboard/get/convictions', [DashboardController::class, 'getConvictions'])->name('dashboard.get.convictions');
+
+    Route::post('/dashboard/add/comment', [DashboardController::class, 'addComment'])->name('dashboard.add.comment');
+    Route::post('/dashboard/destroy/comment', [DashboardController::class, 'deleteComment'])->name('dashboard.destroy.comment');
+
+    Route::post('/dashboard/add/arrest', [DashboardController::class, 'addArrest'])->name('dashboard.add.arrest');
+    Route::post('/dashboard/update/arrest', [DashboardController::class, 'updateArrest'])->name('dashboard.update.arrest');
+    Route::post('/dashboard/update/arrest/canceled', [DashboardController::class, 'canceledArrest'])->name('dashboard.update.arrest.canceled');
+    Route::post('/dashboard/destroy/arrest', [DashboardController::class, 'deleteArrest'])->name('dashboard.destroy.arrest');
+
+    Route::post('/dashboard/add/conviction', [DashboardController::class, 'addConviction'])->name('dashboard.add.conviction');
+    Route::post('/dashboard/destroy/conviction', [DashboardController::class, 'deleteConviction'])->name('dashboard.destroy.conviction');
 });
 
 Route::middleware('auth')->group(function () {

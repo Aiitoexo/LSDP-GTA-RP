@@ -10,6 +10,17 @@ class ProfileInMate extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'identity_number',
+        'picture_url',
+        'firstname',
+        'lastname',
+        'gender',
+        'birthday',
+        'age',
+        'address',
+    ];
+
     public function comments(): HasMany
     {
         return $this->hasMany(CommentProfile::class);

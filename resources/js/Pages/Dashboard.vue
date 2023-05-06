@@ -1,7 +1,9 @@
 <template>
     <admin-layout>
         <template #navTop>
-            <NavTop/>
+            <NavTop
+                @add-profile="openModalProfile"
+            />
         </template>
 
         <template #topSubNav>
@@ -10,7 +12,7 @@
 
         <template #subNav>
             <ListPrisonInmate
-                v-for="profile in profiles"
+                v-for="profile in profileInMate"
                 :key="profile.id"
                 :profile="profile"
                 :selected="selectedProfile.id"
@@ -24,12 +26,14 @@
                     <div class="h-80 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
                         <ProfileCard
                             :profile="selectedProfile"
+                            @open-modal-delete-profile="modalDeleteProfileActive = true"
                         />
                     </div>
 
                     <div class="flex-1 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
                         <CommentsProfile
-                            :comments="selectedProfile.comments"
+                            :comments="comments"
+                            :profile-id="selectedProfile.id"
                         />
                     </div>
                 </div>
@@ -37,8 +41,10 @@
                 <div class="col-span-8 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
                     <ArrestsAndConvictions
                         @active-modal="activeModal"
-                        :arrests="selectedProfile.arrests"
-                        :convictions="selectedProfile.convictions"
+                        @update-arrest="updateArrest"
+                        :profile-id="selectedProfile.id"
+                        :arrests="arrests"
+                        :convictions="convictionProfile"
                     />
                 </div>
             </div>
@@ -48,10 +54,26 @@
     <div v-if="modalActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
         <ModalForm
             @close-modal="closeModal"
+            @update-arrest="updateArrest"
             :open-modal="targetModal"
             :profile="selectedProfile"
             :convictions="convictions"
             :offenses="offenses"
+        />
+    </div>
+
+    <div v-if="modalProfileActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
+        <ModalProfileForm
+            @update-profile="updateProfile"
+            @close-modal-profile="this.modalProfileActive = false"
+        />
+    </div>
+
+    <div v-if="modalDeleteProfileActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
+        <ModalDeleteProfile
+            @close-modal-delete-profile="this.modalDeleteProfileActive = false"
+            @update-profile="updateProfile"
+            :profile="selectedProfile"
         />
     </div>
 </template>
@@ -65,6 +87,8 @@ import ProfileCard from "@/Pages/Components/ProfileCard.vue";
 import CommentsProfile from "@/Pages/Components/CommentsProfile.vue";
 import ArrestsAndConvictions from "@/Pages/Components/ArrestsAndConvictions.vue";
 import ModalForm from "@/Pages/Components/ModalForm.vue";
+import ModalProfileForm from "@/Pages/Components/ModalProfileForm.vue";
+import ModalDeleteProfile from "@/Pages/Components/ModalDeleteProfile.vue";
 export default {
     name: "Dashboard",
     components: {
@@ -75,15 +99,26 @@ export default {
         ProfileCard,
         CommentsProfile,
         ArrestsAndConvictions,
-        ModalForm
+        ModalForm,
+        ModalProfileForm,
+        ModalDeleteProfile
     },
     props: ['profiles', 'convictions', 'offenses'],
     data() {
         return {
             modalActive: false,
+            modalProfileActive: false,
+            modalDeleteProfileActive: false,
             targetModal: null,
             selectedProfile: this.profiles[0],
+            arrests: this.profiles[0].arrests,
+            convictionProfile: null,
+            comments: this.profiles[0].comments,
+            profileInMate: this.profiles
         }
+    },
+    mounted() {
+        this.getConvictions()
     },
     methods: {
         activeModal(target) {
@@ -95,6 +130,29 @@ export default {
         },
         profileSelected(profile) {
             this.selectedProfile = profile
+            this.arrests = profile.arrests
+            this.comments = profile.comments
+            this.getConvictions()
+        },
+        updateArrest(data) {
+            this.arrests = data.arrests
+            this.getConvictions()
+        },
+        openModalProfile() {
+            this.modalProfileActive = true
+        },
+        updateProfile(profiles) {
+            this.profileInMate = profiles
+        },
+        getConvictions() {
+            axios.get(route('dashboard.get.convictions'), {
+                params: {
+                    profile_in_mate_id:  this.selectedProfile.id
+                }
+            })
+            .then(response => {
+                this.convictionProfile = response.data.convictions
+            })
         }
     }
 }

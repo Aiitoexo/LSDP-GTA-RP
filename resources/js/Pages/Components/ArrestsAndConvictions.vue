@@ -27,12 +27,14 @@
             <ArrestsList
                 v-if="active === 'arrests'"
                 @active-modal="this.$emit('active-modal', $event)"
+                @update-arrest="this.$emit('update-arrest', $event)"
                 :arrests="arrests"
             />
 
             <ConvictionsList
                 v-if="active === 'convictions'"
                 @active-modal="this.$emit('active-modal', $event)"
+                @update-arrest="this.$emit('update-arrest', $event)"
                 :convictions="convictions"
             />
         </div>
@@ -48,17 +50,17 @@ export default {
         ArrestsList,
         ConvictionsList
     },
-    props: ['arrests', 'convictions'],
+    props: ['arrests', 'profile-id', 'convictions'],
     data() {
         return {
-            active: 'arrests'
+            active: 'arrests',
         }
     },
     methods: {
         activeTab(tab) {
             this.active = tab
         },
-    }
+    },
 }
 </script>
 

@@ -14,6 +14,8 @@
             <Conviction
                 :conviction="conviction"
                 @active-modal="this.$emit('active-modal', $event)"
+                @update-arrest="this.$emit('update-arrest', $event)"
+                @get-conviction="this.getConvictions"
             />
         </div>
     </div>
@@ -26,7 +28,7 @@ export default {
     components: {
         Conviction
     },
-    props: ['convictions']
+    props: ['convictions'],
 }
 </script>
 

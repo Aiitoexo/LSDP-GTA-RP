@@ -10,6 +10,10 @@ class CommentProfile extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'profile_in_mate_id',
+        'content'
+    ];
     protected $casts = [
         'created_at' => 'datetime:d/m/y',
     ];

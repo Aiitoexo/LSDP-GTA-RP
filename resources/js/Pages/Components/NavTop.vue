@@ -5,8 +5,8 @@
             <span>Gansta Paradise</span>
         </div>
 
-        <div class="col-span-8 ">
-
+        <div class="col-span-8 flex items-center px-6">
+            <button @click="this.$emit('add-profile')" class="bg-blue-500 py-2 px-4 text-white rounded-md">Ajouter un profile</button>
         </div>
 
         <div class="col-span-2 px-10 my-auto flex justify-end relative sd">

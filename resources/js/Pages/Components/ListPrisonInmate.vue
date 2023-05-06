@@ -6,7 +6,7 @@
         <div class="col-span-3 h-16 w-16 rounded-full bg-green-400 overflow-hidden">
             <img :src="profile.picture_url"
                  alt=""
-                 class="h-full object-cover object-center"
+                 class="h-full w-full object-cover object-center"
             >
         </div>
 
