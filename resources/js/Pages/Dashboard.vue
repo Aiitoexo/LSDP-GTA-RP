@@ -25,7 +25,7 @@
         </template>
 
         <template #main>
-            <div class="grid grid-cols-12 gap-4 h-full">
+            <div v-if="selectedProfile !== null" class="grid grid-cols-12 gap-4 h-full">
                 <div class="col-span-4 space-y-4 flex flex-col">
                     <div class="h-80 rounded-lg shadow-md shadow-zinc-300 overflow-hidden border">
                         <ProfileCard
@@ -114,15 +114,17 @@ export default {
             modalProfileActive: false,
             modalDeleteProfileActive: false,
             targetModal: null,
-            selectedProfile: this.profiles[0],
-            arrests: this.profiles[0].arrests,
+            selectedProfile: this.profiles[0] ?? null,
+            arrests: this.profiles[0] ? this.profiles[0].arrests : null,
             convictionProfile: null,
-            comments: this.profiles[0].comments,
+            comments: this.profiles[0] ? this.profiles[0].comments : null,
             profileInMate: this.profiles
         }
     },
     mounted() {
-        this.getConvictions()
+        if (this.selectedProfile !== null) {
+            this.getConvictions()
+        }
     },
     methods: {
         activeModal(target) {
@@ -147,6 +149,11 @@ export default {
         },
         updateProfile(profiles) {
             this.profileInMate = profiles
+            if (this.selectedProfile === null) {
+                this.selectedProfile = this.profileInMate[0]
+                this.arrests = this.profileInMate[0].arrests
+                this.comments = this.profileInMate[0].comments
+            }
         },
         getConvictions() {
             axios.get(route('dashboard.get.convictions'), {

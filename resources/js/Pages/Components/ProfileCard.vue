@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 bg-red-100">
-                Test
+            <div class="flex-1 border-t-2">
+
             </div>
         </div>
     </div>

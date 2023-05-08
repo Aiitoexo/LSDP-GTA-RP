@@ -990,38 +990,44 @@ class DatabaseSeeder extends Seeder
         ];
 
         User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.fr',
+            'name' => 'Mack',
+            'email' => 'mack.lachaud@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
-        User::factory(10)->create();
+        User::create([
+            'name' => 'Ramesch',
+            'email' => 'rameschtv@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+
+//        User::factory(10)->create();
 
         foreach ($all_offenses as $key => $offense) {
             $temp = Offenses::create($offense);
             $all_actions[$key]['offense_id'] = $temp->id;
             Actions::create($all_actions[$key]);
         }
-
-        ProfileInMate::factory(10)->create()->each(function (ProfileInMate $profile) {
-            CommentProfile::factory()->count(rand(1, 5))->create([
-                'profile_in_mate_id' => $profile->id
-            ]);
-
-            for ($i = 1; $i <= rand(1, 10); $i++) {
-                $offense = Offenses::inRandomOrder()->first();
-                $has_conviction = rand(0, 1);
-                $fine_remove = $has_conviction ? 0 : rand(0, 1);
-
-                Arrest::create([
-                    'profile_in_mate_id' => $profile->id,
-                    'offense_id' => $offense->id,
-                    'payed' => rand(0, 1),
-                    'has_conviction' => $has_conviction,
-                    'created_at_conviction' => $has_conviction ? Carbon::now()->format('d/m/y') : null,
-                    'fine_remove' => $fine_remove,
-                ]);
-            }
-        });
+//
+//        ProfileInMate::factory(10)->create()->each(function (ProfileInMate $profile) {
+//            CommentProfile::factory()->count(rand(1, 5))->create([
+//                'profile_in_mate_id' => $profile->id
+//            ]);
+//
+//            for ($i = 1; $i <= rand(1, 10); $i++) {
+//                $offense = Offenses::inRandomOrder()->first();
+//                $has_conviction = rand(0, 1);
+//                $fine_remove = $has_conviction ? 0 : rand(0, 1);
+//
+//                Arrest::create([
+//                    'profile_in_mate_id' => $profile->id,
+//                    'offense_id' => $offense->id,
+//                    'payed' => rand(0, 1),
+//                    'has_conviction' => $has_conviction,
+//                    'created_at_conviction' => $has_conviction ? Carbon::now()->format('d/m/y') : null,
+//                    'fine_remove' => $fine_remove,
+//                ]);
+//            }
+//        });
     }
 }
