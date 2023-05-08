@@ -49,6 +49,7 @@ export default {
                 profile_in_mate_id: this.profileId,
                 content: this.comment
             }).then(response => {
+                this.comment = null
                 this.allComments = response.data.comments
             })
         },

@@ -1,12 +1,12 @@
 <template>
     <div class="grid grid-cols-12 h-full">
-        <div class="col-span-2 flex items-center pl-4">
+        <Link :href="route('dashboard')" class="col-span-2 flex items-center pl-4">
             <img src="https://cdn.discordapp.com/attachments/1032375319002349651/1037129870175653909/logo_mpodif.png" class="h-20 object-contain object-center">
             <span>Gansta Paradise</span>
-        </div>
+        </Link>
 
         <div class="col-span-8 flex items-center px-6">
-            <button @click="this.$emit('add-profile')" class="bg-blue-500 py-2 px-4 text-white rounded-md">Ajouter un profile</button>
+            <button v-if="!admin" @click="this.$emit('add-profile')" class="bg-blue-500 py-2 px-4 text-white rounded-md">Ajouter un profile</button>
         </div>
 
         <div class="col-span-2 px-10 my-auto flex justify-end relative sd">
@@ -24,26 +24,39 @@
                  :class="openDropdown ? 'block' : 'hidden'">
                 <ul class="py-2 text-sm">
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Settings</a>
+                        <Link :href="route('dashboard.admin.reset.my.password')" class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Settings</Link>
                     </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Admin</a>
+                    <li v-if="user.is_admin">
+                        <Link :href="route('dashboard.admin')"  class="block px-4 py-2 hover:bg-zinc-700 hover:text-white">Admin</Link>
                     </li>
                 </ul>
-                <div class="pt-2 ">
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-red-600 hover:text-white">Deconecter</a>
-                </div>
+                <form @submit="disconnect" class="pt-2 ">
+                    <button class="block w-full px-4 py-2 text-sm hover:bg-red-600 hover:text-white">Déconnexion</button>
+                </form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3'
 export default {
     name: "NavTop",
+    components: {
+        Link
+    },
+    props: [
+        'admin',
+        'user'
+    ],
     data() {
         return {
             openDropdown: false
+        }
+    },
+    methods: {
+        disconnect() {
+            axios.post(route('logout'))
         }
     }
 }

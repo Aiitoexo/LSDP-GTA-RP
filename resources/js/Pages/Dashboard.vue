@@ -3,11 +3,15 @@
         <template #navTop>
             <NavTop
                 @add-profile="openModalProfile"
+                :admin="false"
+                :user="user"
             />
         </template>
 
         <template #topSubNav>
-            <SearchPrisonInmate/>
+            <SearchPrisonInmate
+                @update-profile="updateProfile"
+            />
         </template>
 
         <template #subNav>
@@ -71,7 +75,7 @@
 
     <div v-if="modalDeleteProfileActive" class="top-0 absolute h-screen w-screen bg-black bg-opacity-70">
         <ModalDeleteProfile
-            @close-modal-delete-profile="this.modalDeleteProfileActive = false"
+            @close-modal-delete-profile="closeModalProfile"
             @update-profile="updateProfile"
             :profile="selectedProfile"
         />
@@ -103,7 +107,7 @@ export default {
         ModalProfileForm,
         ModalDeleteProfile
     },
-    props: ['profiles', 'convictions', 'offenses'],
+    props: ['profiles', 'convictions', 'offenses', 'user'],
     data() {
         return {
             modalActive: false,
@@ -153,6 +157,14 @@ export default {
             .then(response => {
                 this.convictionProfile = response.data.convictions
             })
+        },
+        closeModalProfile(bool) {
+            if (bool) {
+                this.selectedProfile = this.profiles[0]
+                this.modalDeleteProfileActive = false
+            } else {
+                this.modalDeleteProfileActive = false
+            }
         }
     }
 }

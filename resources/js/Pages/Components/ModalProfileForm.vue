@@ -5,7 +5,7 @@
             <form @submit.prevent="submitForm" class="p-4 space-y-2">
                 <div class="grid grid-cols-2 gap-4">
                     <div class="col-span-1 flex flex-col">
-                        <label for="">Prenom</label>
+                        <label for="">Prénom</label>
                         <input v-model="form.firstname" class="h-10 rounded-md" type="text">
                     </div>
 
@@ -17,7 +17,7 @@
 
                 <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-4 flex flex-col">
-                        <label for="">N Identiter</label>
+                        <label for="">N d'identité</label>
                         <input v-model="form.identity_number" class="h-10 rounded-md" type="text">
                     </div>
 
@@ -38,7 +38,7 @@
                             </select>
                         </div>
                         <div class="col-span-4 flex flex-col">
-                            <label for="">mois</label>
+                            <label for="">Mois</label>
                             <select v-model="month" class="h-10 rounded-md">
                                 <option :value="month.value" v-for="month in months">
                                     {{ month.label }}
@@ -46,7 +46,7 @@
                             </select>
                         </div>
                         <div class="col-span-3 flex flex-col">
-                            <label for="">Annee</label>
+                            <label for="">Année</label>
                             <select v-model="year" class="h-10 rounded-md">
                                 <option :value="year" v-for="year in years">
                                     {{ year }}

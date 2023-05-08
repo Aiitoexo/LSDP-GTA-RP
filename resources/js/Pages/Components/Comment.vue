@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full grid grid-cols-6 border-b">
+    <div class="w-full grid grid-cols-6 border-b py-2">
         <div class="col-span-1 flex items-center justify-center border-r border-zinc-300">
             <span class="text-sm">{{ comment.created_at }}</span>
         </div>

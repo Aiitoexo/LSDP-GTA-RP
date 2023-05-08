@@ -21,10 +21,13 @@ class DashboardController extends Controller
         $convictions = Actions::all();
         $offenses = Offenses::with('action')->get();
 
+        $user = auth()->user();
+
         return Inertia::render('Dashboard', [
             'profiles' => $profiles,
             'convictions' => $convictions,
-            'offenses' => $offenses
+            'offenses' => $offenses,
+            'user' => $user
         ]);
     }
 
@@ -270,7 +273,7 @@ class DashboardController extends Controller
 
     public function getProfiles()
     {
-        $profiles = ProfileInMate::with(['comments' => function($query) {
+        return ProfileInMate::with(['comments' => function($query) {
             $query->orderByDesc('created_at');
         }, 'arrests' => function($query) {
             $query->orderByDesc('created_at');
@@ -278,6 +281,7 @@ class DashboardController extends Controller
                 $query->orderByDesc('created_at');
             }]);
         }])
+            ->orderBy('firstname')
             ->get()
             ->map(function ($profile) {
                 $profile->convictions = $profile->arrests
@@ -294,7 +298,41 @@ class DashboardController extends Controller
 
                 return $profile;
             });
+    }
 
-        return $profiles;
+    public function searchProfile(Request $request)
+    {
+        $term = $request->term;
+
+        if ($term) {
+            return ProfileInMate::with(['comments' => function($query) {
+                $query->orderByDesc('created_at');
+            }, 'arrests' => function($query) {
+                $query->orderByDesc('created_at');
+                $query->with(['offense' => function($query) {
+                    $query->orderByDesc('created_at');
+                }]);
+            }])
+                ->where('firstname', 'LIKE', '%' . $term . '%')
+                ->orderBy('firstname')
+                ->get()
+                ->map(function ($profile) {
+                    $profile->convictions = $profile->arrests
+                        ->where('has_conviction', true)
+                        ->map(function ($arrest) {
+                            return [
+                                'arrest' => $arrest,
+                                'action' => $arrest->offense->action,
+                                'created_at_conviction' => $arrest->created_at_conviction,
+                            ];
+                        })
+                        ->unique(null, false)
+                        ->values();
+
+                    return $profile;
+                });
+        } else {
+            return response()->json($this->getProfiles());
+        }
     }
 }

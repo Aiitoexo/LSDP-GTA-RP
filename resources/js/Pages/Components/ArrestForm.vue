@@ -4,9 +4,9 @@
 
     <div class="p-4 space-y-2 divide-y-2">
         <div class="grid grid-cols-6">
-            <div class="col-span-2">Prenom: {{ profile.firstname }}</div>
+            <div class="col-span-2">Prénom: {{ profile.firstname }}</div>
             <div class="col-span-2">Nom: {{ profile.lastname }}</div>
-            <div class="col-span-2">N identiter: {{ profile.identity_number }}</div>
+            <div class="col-span-2">N d'identité: {{ profile.identity_number }}</div>
         </div>
 
         <div class="grid grid-cols-12 pt-4 space-x-4 pb-2">

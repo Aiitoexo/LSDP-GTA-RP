@@ -1,16 +1,16 @@
 <template>
-    <div v-if="type === 'info'" class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Info Condanations</div>
-    <div v-else class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Ajouter une Condanation</div>
+    <div v-if="type === 'info'" class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Info Condamnation</div>
+    <div v-else class="bg-zinc-700 text-white h-16 flex justify-center items-center text-lg">Ajouter une Condamnation</div>
 
     <div class="p-4 space-y-2 divide-y-2">
         <div class="grid grid-cols-6">
-            <div class="col-span-2">Prenom: {{ profile.firstname }}</div>
+            <div class="col-span-2">Prénom: {{ profile.firstname }}</div>
             <div class="col-span-2">Nom: {{ profile.lastname }}</div>
-            <div class="col-span-2">N identiter: {{ profile.identity_number }}</div>
+            <div class="col-span-2">N d'identité: {{ profile.identity_number }}</div>
         </div>
 
         <div class="pt-4 pb-2 space-y-2">
-            <span class="font-semibold text-lg underline">Information arrestation</span>
+            <span class="font-semibold text-lg underline">Information Arrestation</span>
             <div class="grid grid-cols-12 space-x-4 ">
                 <div class="col-span-8 flex flex-col">
                     <label for="">Infraction</label>

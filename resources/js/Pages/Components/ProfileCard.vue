@@ -15,15 +15,15 @@
                     <img :src="profile.picture_url" class="object-cover object-center w-full h-36">
                 </div>
                 <div class="col-span-9 divide-y-2 divide-blue-900 space-y-1 font-semibold">
-                    <span>Numero didentiter: {{ profile.identity_number }}</span>
+                    <span>Numéro d'identité: {{ profile.identity_number }}</span>
                     <div class="pl-2 flex flex-col">
-                        <span>Prenom : {{ profile.firstname }}</span>
+                        <span>Prénom : {{ profile.firstname }}</span>
                         <span>Nom : {{ profile.lastname }}</span>
                     </div>
                     <div class="pl-2">
                         <div class="grid grid-cols-2">
                             <span class="col-span-1">Sexe : {{ profile.gender === "1" ? 'F' : 'M' }}</span>
-                            <span class="col-span-1">Nee le : {{ profile.birthday }}</span>
+                            <span class="col-span-1">Née le : {{ profile.birthday }}</span>
                         </div>
                         <span>Adresse : {{ profile.address }}</span>
                     </div>
